@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Gun : MonoBehaviour
 {
@@ -8,6 +9,10 @@ public class Gun : MonoBehaviour
     public int magazineSize = 30;
     public int usableBullets = 270;
     public float fireRate = 0.1f;
+
+    //Gun Flashes
+    public Image flashImage;
+    public Sprite[] gunFlash; 
 
     public Transform shootPoint;
     int m_bulletCount;
@@ -23,7 +28,7 @@ public class Gun : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetMouseButton(0) && m_canFire && m_bulletCount > 0)
+        if(Input.GetButton("Fire1") && m_canFire && m_bulletCount > 0)
         {
             StartCoroutine(FiringGun());
         }
@@ -52,8 +57,10 @@ public class Gun : MonoBehaviour
     {
         Debug.Log("Started firing");
 
+        StartCoroutine(GunFlashing());
+
         RaycastHit hitInfo;
-        if (Physics.Raycast(shootPoint.position, shootPoint.forward, out hitInfo))
+        if (Physics.Raycast(shootPoint.position, shootPoint.forward, out hitInfo)) //checking for colliders
         {
              Debug.Log("hit: " + hitInfo.collider.name);
         }
@@ -63,5 +70,14 @@ public class Gun : MonoBehaviour
         yield return new WaitForSeconds(fireRate);
         m_canFire = true;
         Debug.Log("Ended firing");
+    }
+
+    IEnumerator GunFlashing()
+    {
+        flashImage.sprite = gunFlash[Random.Range(0, gunFlash.Length)]; //randomly choose a sprite
+        flashImage.color = Color.white;
+        yield return new WaitForSeconds(0.05f);
+        flashImage.sprite = null;
+        flashImage.color = new Color(0, 0, 0, 0);
     }
 }
