@@ -41,9 +41,9 @@ public class Gun : MonoBehaviour
     private void Reload()
     {
         int reloadAmount = magazineSize - m_bulletCount;
-        if(reloadAmount >= m_bulletsRemain)
+        if(reloadAmount >= m_bulletsRemain) //checking if the reload amount is more than the remaining amount of bullets
         {
-            m_bulletCount += m_bulletsRemain;
+            m_bulletCount += m_bulletsRemain; //reload the gun equal to the remaining amount of bullets
             m_bulletsRemain -= reloadAmount;
         }
         else 
@@ -60,7 +60,7 @@ public class Gun : MonoBehaviour
         StartCoroutine(GunFlashing());
 
         RaycastHit hitInfo;
-        if (Physics.Raycast(shootPoint.position, shootPoint.forward, out hitInfo)) //checking for colliders
+        if (Physics.Raycast(shootPoint.position, shootPoint.forward, out hitInfo)) //checking for colliders with raycast
         {
              Debug.Log("hit: " + hitInfo.collider.name);
         }
