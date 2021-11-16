@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//with reference from brackeys
+
 public class PlayerMovement : MonoBehaviour
 {
     public CharacterController controller;

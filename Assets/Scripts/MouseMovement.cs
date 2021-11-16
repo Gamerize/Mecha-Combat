@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//with reference to brackeys
+
 public class MouseMovement : MonoBehaviour
 {
     public float Sensitivity = 200.0f;
