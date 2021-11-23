@@ -15,6 +15,9 @@ public class Gun : MonoBehaviour
     public Sprite[] gunFlash; 
 
     public Transform shootPoint;
+    [SerializeField] private GameObject[] m_bulletHoleSprites;
+
+    //gun variables
     int m_bulletCount;
     int m_bulletsRemain;
     bool m_canFire;
@@ -63,6 +66,15 @@ public class Gun : MonoBehaviour
         if (Physics.Raycast(shootPoint.position, shootPoint.forward, out hitInfo)) //checking for colliders with raycast
         {
              Debug.Log("hit: " + hitInfo.collider.name);
+
+            if(hitInfo.collider.tag == "Wall")
+            {
+                Debug.Log(m_bulletHoleSprites[Random.Range(0, m_bulletHoleSprites.Length)]);
+                GameObject selectedBulletHole = m_bulletHoleSprites[Random.Range(0, m_bulletHoleSprites.Length)];
+
+                Vector3 Adjust = new Vector3(hitInfo.point.x + 0.01f, hitInfo.point.y + 0.01f, hitInfo.point.z + 0.01f);
+                Instantiate(selectedBulletHole, Adjust, Quaternion.LookRotation(hitInfo.normal));
+            }
         }
             m_canFire = false;
         m_bulletCount--;
